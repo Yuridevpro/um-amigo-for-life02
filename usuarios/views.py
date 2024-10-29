@@ -19,7 +19,6 @@ from datetime import timedelta
 from .models import Ativacao, ResetSenha
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from social_django.models import UserSocialAuth  # Importe o modelo UserSocialAuth
 from django.db import IntegrityError
 
 
