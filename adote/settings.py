@@ -3,7 +3,6 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants
 from dotenv import load_dotenv
-import pymongo
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
@@ -74,19 +73,14 @@ WSGI_APPLICATION = 'adote.wsgi.application'
 load_dotenv() 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mongodb',
-        'NAME': os.getenv('DB_NAME'), 
-        'HOST': os.getenv('DB_HOST'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'OPTIONS': {
-            'connect': False,
-            'auto_start_request': True,
-            'auto_close_request': True,
-            'maxPoolSize': 10,
-            'minPoolSize': 1
-        },
-        'ATOMIC_REQUESTS': True
+        'ENGINE': 'djongo',
+        'NAME': os.getenv('DB_NAME'),  # my_database
+        'CLIENT': {
+            'host': os.getenv('DB_HOST'),
+            'username': os.getenv('DB_USER'),  
+            'password': os.getenv('DB_PASSWORD'),  
+            'authSource': 'admin',  # ajuste conforme necessário
+        }
     }
 }
 
