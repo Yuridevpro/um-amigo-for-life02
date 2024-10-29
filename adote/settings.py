@@ -71,7 +71,7 @@ ADMIN_SITE = 'adote.admin.admin.CustomAdminSite'
 
 WSGI_APPLICATION = 'adote.wsgi.application'
 
-
+load_dotenv() 
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
