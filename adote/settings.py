@@ -70,19 +70,32 @@ ADMIN_SITE = 'adote.admin.admin.CustomAdminSite'
 
 WSGI_APPLICATION = 'adote.wsgi.application'
 
-load_dotenv() 
+load_dotenv()
+# postgree sql
 DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': os.getenv('DB_NAME'),  # my_database
-        'CLIENT': {
-            'host': os.getenv('DB_HOST'),
-            'username': os.getenv('DB_USER'),  
-            'password': os.getenv('DB_PASSWORD'),  
-            'authSource': 'admin',  # ajuste conforme necessário
-        }
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': os.getenv('DB_NAME'),
+         'USER': os.getenv('DB_USER'),
+         'PASSWORD': os.getenv('DB_PASSWORD'),
+         'HOST': os.getenv('DB_HOST'),
+         'PORT': os.getenv('DB_PORT'),
+     }
+ }
+
+# mongo db 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': os.getenv('DB_NAME'),  # my_database
+#         'CLIENT': {
+#             'host': os.getenv('DB_HOST'),
+#             'username': os.getenv('DB_USER'),  
+#             'password': os.getenv('DB_PASSWORD'),  
+#             'authSource': 'admin',  # ajuste conforme necessário
+#         }
+#     }
+# }
 
 
 
