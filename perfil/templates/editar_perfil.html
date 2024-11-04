@@ -268,9 +268,10 @@
             formData.append('foto_perfil', fileInput.files[0]);
         }
 
+        // **Início da implementação do método PUT**
         try {
             const response = await fetch('/editar_perfil/', {
-                method: 'PUT',
+                method: 'PUT', // O método PUT é usado aqui para atualizar a imagem de perfil do usuário.
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'  // Inclua o token CSRF para segurança
                 },
