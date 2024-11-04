@@ -210,8 +210,8 @@
         });
     });
 
-    // Função para pré-visualizar a imagem de perfil
-    function previewImage(event) {
+      // Função para pré-visualizar a imagem de perfil
+      function previewImage(event) {
         const file = event.target.files[0];
         const previewContainer = document.getElementById('imagePreview');
 
@@ -238,6 +238,9 @@
         imageBox.appendChild(img);
         imageBox.appendChild(removeBtn);
         previewContainer.appendChild(imageBox);
+
+        // Marca a remoção como falsa ao carregar uma nova imagem
+        document.getElementById('remove_foto_perfil').value = 'false';
     }
 
     // Função para remover a imagem de perfil
@@ -250,6 +253,42 @@
 
         document.getElementById('remove_foto_perfil').value = 'true'; // Marca a remoção da foto de perfil
     }
+
+    // Função para enviar a atualização de imagem com método PUT
+    async function saveProfileImage() {
+        const fileInput = document.getElementById('foto_perfil');
+        const removeImageFlag = document.getElementById('remove_foto_perfil').value;
+
+        const formData = new FormData();
+
+        // Adiciona a imagem ou a flag de remoção
+        if (removeImageFlag === 'true') {
+            formData.append('remove_foto_perfil', 'true');
+        } else if (fileInput.files.length > 0) {
+            formData.append('foto_perfil', fileInput.files[0]);
+        }
+
+        try {
+            const response = await fetch('/editar_perfil/', {
+                method: 'PUT',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'  // Inclua o token CSRF para segurança
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Imagem de perfil atualizada com sucesso!');
+                window.location.reload();  // Atualiza a página para ver a imagem atualizada
+            } else {
+                alert('Erro ao atualizar a imagem de perfil.');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao atualizar a imagem de perfil.');
+        }
+    }
+
 </script>
 
 {% endblock %}
