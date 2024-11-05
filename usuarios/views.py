@@ -280,11 +280,14 @@ def criar_senha(request, uidb64, token):
         # Decodifica o ID do usuário e recupera o usuário do banco de dados
         uid = urlsafe_base64_decode(uidb64).decode('utf-8')
         user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        # Recupera a instância de ResetSenha do usuário
+        reset_senha = ResetSenha.objects.get(user=user)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist, ResetSenha.DoesNotExist):
         user = None
+        reset_senha = None
 
     # Verifica se o usuário foi encontrado e se o token é válido
-    if user is not None and default_token_generator.check_token(user, token):
+    if user is not None and reset_senha.reset_token == token and reset_senha.is_token_valid():
         # Processa a requisição POST (trata o envio do formulário)
         if request.method == 'POST':
             # Recupera as novas senhas do formulário
@@ -300,6 +303,8 @@ def criar_senha(request, uidb64, token):
             try:
                 user.set_password(senha_nova)
                 user.save()
+                # Opcionalmente, você pode deletar a instância de ResetSenha aqui
+                reset_senha.delete()
             except Exception as e:
                 messages.add_message(request, constants.ERROR, 'Erro ao alterar a senha. Tente novamente mais tarde.')
                 return render(request, 'criar_senha.html', {'uidb64': uidb64, 'token': token})
