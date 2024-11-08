@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['um-amigo-for-life02-g5co.onrender.com']
+ALLOWED_HOSTS = ['um-amigo-for-life02.onrender.com']
 
 
 # Application definition
