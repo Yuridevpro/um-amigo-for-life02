@@ -69,7 +69,7 @@ def update_pet_location(sender, instance, created, **kwargs):
 
 class PetImage(models.Model):
     pet = models.ForeignKey(Pet, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='pet_images/')
+    image = models.ImageField(upload_to='pet_images/secondary/', storage=s3_storage)
 
     def __str__(self):
         return f"Image for {self.pet.nome_pet}"

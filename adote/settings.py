@@ -6,12 +6,12 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-lyeat3$gpj2_*7ti*6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['um-amigo-for-life02.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -69,18 +69,18 @@ ADMIN_SITE = 'adote.admin.admin.CustomAdminSite'
 
 WSGI_APPLICATION = 'adote.wsgi.application'
 
-load_dotenv()
-# postgree sql
+load_dotenv() 
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': os.getenv('DB_NAME'),
-         'USER': os.getenv('DB_USER'),
-         'PASSWORD': os.getenv('DB_PASSWORD'),
-         'HOST': os.getenv('DB_HOST'),
-         'PORT': os.getenv('DB_PORT'),
-     }
- }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'amigo_for_life_db'),
+        'USER': os.getenv('DB_USER', 'amigo_for_life_db_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Rcsk3HgGFLr9d9p4PwpjkuIvkBf5hdXG'),
+        'HOST': os.getenv('DB_HOST', 'dpg-csh3n5pu0jms73enbb00-a.oregon-postgres.render.com'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
+
 
 # mongo db 
 # DATABASES = {
@@ -139,10 +139,10 @@ STATIC_ROOT = os.path.join('staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # media
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
+AWS_ACCESS_KEY_ID = ('AKIAWIJIU4AHNJN5UMUO')
+AWS_SECRET_ACCESS_KEY = ('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')
+AWS_STORAGE_BUCKET_NAME = ('friend-for-life-bucket-django')
+AWS_S3_REGION_NAME = ('us-east-2')
 
 MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -157,10 +157,10 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
 }
 
-load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
 
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'afriendforlifepet@gmail.com'
+EMAIL_HOST_PASSWORD = 'pyzdzzplmjglruxf'
