@@ -1,20 +1,19 @@
-# Adicione suas importações no início do arquivo settings.py
 from pathlib import Path
 import os
 from django.contrib.messages import constants
 from dotenv import load_dotenv
+
+# Carregar variáveis de ambiente
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
-SECRET_KEY = 'django-insecure-lyeat3$gpj2_*7ti*6'
+# Segurança
+SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
+# Aplicativos
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,8 +30,7 @@ INSTALLED_APPS = [
     'pagina_inicio',
 ]
 
-
-# Middleware do Django
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -43,12 +41,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'perfil.middleware.ProfileCompleteMiddleware',
-  
 ]
 
-
+# Configuração de URLs
 ROOT_URLCONF = 'adote.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -65,90 +63,57 @@ TEMPLATES = [
     },
 ]
 
+# Administração personalizada
 ADMIN_SITE = 'adote.admin.admin.CustomAdminSite'
 
+# Configuração do WSGI
 WSGI_APPLICATION = 'adote.wsgi.application'
 
-load_dotenv() 
+# Banco de dados
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'amigo_for_life_db'),
-        'USER': os.getenv('DB_USER', 'amigo_for_life_db_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'Rcsk3HgGFLr9d9p4PwpjkuIvkBf5hdXG'),
-        'HOST': os.getenv('DB_HOST', 'dpg-csh3n5pu0jms73enbb00-a.oregon-postgres.render.com'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
-
-# mongo db 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': os.getenv('DB_NAME'),  # my_database
-#         'CLIENT': {
-#             'host': os.getenv('DB_HOST'),
-#             'username': os.getenv('DB_USER'),  
-#             'password': os.getenv('DB_PASSWORD'),  
-#             'authSource': 'admin',  # ajuste conforme necessário
-#         }
-#     }
-# }
-
-
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-# }
-
-
-
+# Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# Configurações de internacionalização
 LANGUAGE_CODE = 'pt-BR'
-
 TIME_ZONE = 'America/Sao_Paulo'
-
 USE_I18N = True
-
 USE_TZ = True
 
-from pathlib import Path
-
-# staticos
+# Arquivos estáticos
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
-STATIC_ROOT = os.path.join('staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# media
-AWS_ACCESS_KEY_ID = ('AKIAWIJIU4AHNJN5UMUO')
-AWS_SECRET_ACCESS_KEY = ('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')
-AWS_STORAGE_BUCKET_NAME = ('friend-for-life-bucket-django')
-AWS_S3_REGION_NAME = ('us-east-2')
+# Arquivos de mídia (Amazon S3)
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
 
-MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+# Configuração padrão do campo automático
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Tags de mensagens do Django
 MESSAGE_TAGS = {
     constants.DEBUG: 'alert-primary',
     constants.ERROR: 'alert-danger',
@@ -157,10 +122,9 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
 }
 
-
-
+# Configurações de email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'afriendforlifepet@gmail.com'
-EMAIL_HOST_PASSWORD = 'pyzdzzplmjglruxf'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
