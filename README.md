@@ -38,6 +38,18 @@ AWS_ACCESS_KEY_ID='sua_chave_aws'
 AWS_SECRET_ACCESS_KEY='sua_chave_secreta_aws'
 AWS_STORAGE_BUCKET_NAME='nome-do-seu-bucket'
 AWS_S3_REGION_NAME='us-east-1'
+
+DB_USER = 
+EMAIL_HOST = 
+EMAIL_HOST_PASSWORD = 
+EMAIL_HOST_USER = 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DB_HOST = 
+DB_NAME = 
+DB_PASSWORD = 
+DB_USER = 
 ```
 
 ### 4. Banco de Dados e Execução
