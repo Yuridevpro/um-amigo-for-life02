@@ -1,3 +1,5 @@
+# perfil/middleware.py
+
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile

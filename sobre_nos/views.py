@@ -1,3 +1,4 @@
+# sobre_nos/views.py
 from django.shortcuts import render
 
 def quem_somos(request):

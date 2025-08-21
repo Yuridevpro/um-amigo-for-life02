@@ -1,3 +1,4 @@
+# adote/settings.py
 from pathlib import Path
 import os
 from django.contrib.messages import constants
@@ -8,10 +9,17 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENVIRONMENT = os.getenv('ENVIRONMENT', 'production') 
+
 # Segurança
-SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key-for-dev')
+DEBUG = (ENVIRONMENT == 'development')
+
+if DEBUG:
+    ALLOWED_HOSTS = ['*'] # Permite todos os hosts em desenvolvimento
+else:
+    # Em produção, pegue da variável de ambiente. Ex: 'www.seusite.com,seusite.com'
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Aplicativos
 INSTALLED_APPS = [
@@ -69,6 +77,18 @@ ADMIN_SITE = 'adote.admin.admin.CustomAdminSite'
 # Configuração do WSGI
 WSGI_APPLICATION = 'adote.wsgi.application'
 
+
+# # Banco de dados
+# if ENVIRONMENT == 'development':
+#     # Configuração para ambiente de desenvolvimento (SQLite)
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+
 # Banco de dados
 DATABASES = {
     'default': {
@@ -80,7 +100,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-
 # Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

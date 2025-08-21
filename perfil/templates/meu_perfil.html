@@ -1,3 +1,4 @@
+<!-- perfil/templates/meu_perfil -->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -151,7 +152,30 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{% url 'remover_pet' pet.id %}" class="btn btn-danger">REMOVER</a>
+                            <!-- Botão que ativa o modal de confirmação -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeletePetModal-{{ pet.id }}">
+                                REMOVER
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal de confirmação de remoção do pet -->
+                    <div class="modal fade" id="confirmDeletePetModal-{{ pet.id }}" tabindex="-1" aria-labelledby="confirmDeletePetModalLabel-{{ pet.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeletePetModalLabel-{{ pet.id }}">Confirmar Remoção</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Tem certeza que deseja remover o pet "{{ pet.nome_pet }}"? Essa ação não poderá ser desfeita.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <!-- O link de remoção real está aqui, dentro do formulário -->
+                                    <a href="{% url 'remover_pet' pet.id %}" class="btn btn-danger">Confirmar Remoção</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
