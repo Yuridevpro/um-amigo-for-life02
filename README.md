@@ -89,76 +89,126 @@ Abra seu navegador e acesse: **http://127.0.0.1:8000/**
 ## 📁 Estrutura do Projeto
 
 ```
+
 um-amigo-for-life02/
-um-amigo-for-life02/
-├── 📄 manage.py                # Utilitário de linha de comando
-├── 📜 requirements.txt         # Dependências do projeto
-├── 🔑 .env                     # Arquivo de variáveis de ambiente (local)
-├── 📦 ambiente_virtual/         # Pasta do ambiente virtual Python
+├── 📄 manage.py
+├── 📜 requirements.txt
+├── 🔑 .env
+├── 🐍 my_storages.py
+├── 📦 ambiente_virtual/
 │
-├── ⚙️ adote/                   # App de configuração principal do projeto
-│   ├── settings.py            # Configurações centrais (BD, Apps, Mídia, etc.)
-│   ├── urls.py                # Roteador principal de URLs
-│   ├── wsgi.py                # Configuração do servidor WSGI
-│   └── asgi.py                # Configuração do servidor ASGI
+├── ⚙️ adote/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
 │
-├── ❤️ adotar/                  # App: Funcionalidades de adoção (listagem/busca)
-│   ├── views.py               # Lógica para listar e filtrar pets
-│   ├── urls.py                # Rotas do app adotar
+├── ❤️ adotar/
+│   ├── __init__.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
 │   └── templates/
 │       └── listar_pets.html
 │
-├── 🐶 divulgar/                # App: Funcionalidades de cadastro de pets
-│   ├── models.py              # Modelos Pet e PetImage
-│   ├── views.py               # Lógica para cadastrar e ver pets
-│   ├── urls.py                # Rotas do app divulgar
-│   ├── admin.py               # Customização do Django Admin
+├── 🐶 divulgar/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
 │   └── templates/
 │       ├── novo_pet.html
 │       └── ver_pet.html
 │
-├── 🏠 pagina_inicio/           # App: Home page e depoimentos
-│   ├── models.py              # Modelo Depoimento
-│   ├── views.py               # Lógica da home e depoimentos (AJAX)
-│   ├── urls.py                # Rotas do app pagina_inicio
+├── 🏠 pagina_inicio/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
 │   └── templates/
-│       ├── home.html
-│       └── depoimento.html
+│       ├── depoimento.html
+│       └── home.html
 │
-├── 👤 perfil/                  # App: Gerenciamento de perfis de usuário
-│   ├── models.py              # Modelo UserProfile
-│   ├── views.py               # Lógica para ver/editar perfil, alterar senha, etc.
-│   ├── middleware.py          # Middleware para forçar preenchimento do perfil
-│   ├── urls.py                # Rotas do app perfil
+├── 👤 perfil/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── middleware.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
 │   └── templates/
-│       ├── meu_perfil.html
+│       ├── alterar_senha.html
 │       ├── editar_perfil.html
-│       └── ...
+│       ├── meu_perfil.html
+│       └── perfil_protetor.html
 │
-├── ℹ️ sobre_nos/               # App: Páginas institucionais (estáticas)
-│   ├── views.py               # Lógica para renderizar páginas
-│   ├── urls.py                # Rotas do app sobre_nos
+├── ℹ️ sobre_nos/
+│   ├── __init__.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
 │   └── templates/
+│       ├── politica_privacidade.html
 │       ├── quem_somos.html
-│       └── ...
+│       └── termos_servico.html
 │
-├── 📱 usuarios/                # App: Autenticação (cadastro, login, etc.)
-│   ├── models.py              # Modelos para ativação e reset de senha
-│   ├── views.py               # Lógica de cadastro, login, recuperação de senha
-│   ├── urls.py                # Rotas do app usuarios
+├── 📱 usuarios/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
 │   └── templates/
 │       ├── cadastro.html
-│       ├── login.html
-│       └── ...
+│       ├── criar_senha.html
+│       ├── email_confirmacao.html
+│       ├── email_reset_senha.html
+│       ├── esqueceu_senha.html
+│       └── login.html
 │
-└── 🎨 templates/               # Diretório central de templates e arquivos estáticos
-    ├── base.html              # Template base para todas as páginas
-    ├── admin/                 # Customização do admin
-    └── static/                # Arquivos CSS, JS e Imagens
+├── 📂 media/
+│   ├── pet_images/
+│   │   └── secondary/
+│   └── profile_pics/
+│
+└── 🎨 templates/
+    ├── base.html
+    ├── admin/
+    │   └── base_site.html
+    └── static/
+        ├── admin/
+        │   └── css/
         ├── adotar/
+        │   ├── css/
+        │   └── img/
+        ├── base/
+        │   ├── css/
+        │   └── img/
         ├── divulgar/
+        │   ├── novo_pet/
+        │   └── ver_pet/
+        ├── pagina_inicio/
+        │   ├── depoimento/
+        │   └── home/
         ├── perfil/
-        └── ...
+        │   ├── alterar_senha/
+        │   ├── editar_perfil/
+        │   └── meu_perfil/
+        ├── sobre_nos/
+        │   ├── politica_privacidade/
+        │   ├── quem_somos/
+        │   └── termos_servico/
+        └── usuarios/
+            └── cadastro/
 ```
 
 ## 🔬 Tecnologias Utilizadas
