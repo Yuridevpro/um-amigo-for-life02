@@ -233,16 +233,31 @@ um-amigo-for-life02/
 
 ## 🤝 Equipe
 
+## 🗓️ Cronograma de Desenvolvimento (Etapa 2)
+
+O cronograma a seguir detalha o plano de 8 semanas para a fase de implementação, testes e validação do sistema, conforme a disciplina N708.
+
+| Semana | Atividades Principais | Entregáveis |
+| :--- | :--- | :--- |
+| **Semana 1** | **Configuração do Ambiente e Backend (Base):** Configuração do ambiente de produção, setup inicial do Django, criação dos modelos de `usuarios` e `perfil`. | Ambiente de desenvolvimento configurado, repositório Git iniciado, modelos iniciais e migrações. |
+| **Semana 2** | **Desenvolvimento do Módulo de Autenticação:** Implementação das views de cadastro, login, logout, confirmação de e-mail e recuperação de senha. | Funcionalidades de autenticação completas e operacionais. |
+| **Semana 3** | **Desenvolvimento do Módulo de Perfil:** Implementação das views para criar, visualizar e editar perfis de usuário, incluindo o upload de fotos para o S3. | Gerenciamento de perfil completo. |
+| **Semana 4** | **Desenvolvimento do Módulo de Pets:** Implementação do cadastro de novos pets, upload de múltiplas imagens e visualização da página de detalhes do pet. | CRUD básico de pets finalizado. |
+| **Semana 5** | **Desenvolvimento do Módulo de Busca e Adoção:** Implementação da listagem e filtragem avançada de pets. | Funcionalidade de busca e listagem completa. |
+| **Semana 6** | **Desenvolvimento de Funcionalidades Adicionais:** Implementação do sistema de depoimentos e da página "Sobre Nós". Integração final do frontend. | Todas as funcionalidades principais implementadas. |
+| **Semana 7** | **Testes e Validação:** Elaboração e execução do plano de testes (testes unitários e de integração). Correção de bugs e refinamento da UI/UX. | Relatório de testes, bugs corrigidos. |
+| **Semana 8** | **Documentação Final e Preparação para Deploy:** Finalização da documentação do código, preparação dos scripts de deploy e apresentação final do projeto. | Documentação finalizada, aplicação pronta para o deploy. |
+
+## 🤝 Equipe e Papéis
+
 **Projeto desenvolvido para a disciplina de Projeto Aplicado Multiplataforma (N705).**
 
-- **Integrante 1:** [Seu Nome Completo]
-- **Integrante 2:** [Nome Completo]
-- **Integrante 3:** [Nome Completo]
-- **Integrante 4:** [Nome Completo]
-
-## 📄 Documentação Completa
-
-Toda a documentação técnica, incluindo requisitos, arquitetura, modelagem de dados e prototipação, está disponível na pasta [`/docs`](./docs/).
+| Nome Completo do Integrante | Papel na Equipe |
+| :--- | :--- |
+| [Seu Nome Completo] | Gerente de Projeto / Arquiteto de Software |
+| [Nome Integrante 2] | Desenvolvedor Backend |
+| [Nome Integrante 3] | Desenvolvedor Frontend / UI/UX Designer |
+| [Nome Integrante 4] | Analista de QA (Testes) / Documentação |
 
 ---
 
