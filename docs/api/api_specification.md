@@ -1,5 +1,5 @@
 ### **Arquivo: `docs/api/api_specification.md`**
-```markdown
+
 # Documento de Especificação de APIs e Interfaces
 
 Este documento descreve as principais interfaces de comunicação e os endpoints (views) da plataforma "A Friend for Life".
