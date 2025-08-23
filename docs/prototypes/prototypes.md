@@ -1,5 +1,5 @@
 ### **Arquivo: `docs/prototypes/prototypes.md`**
-```markdown
+
 
 # Documento de Prototipação: A Friend for Life
 
