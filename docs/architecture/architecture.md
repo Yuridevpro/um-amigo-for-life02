@@ -1,5 +1,5 @@
 ### **Arquivo: `docs/architecture/architecture.md`**
-```markdown
+
 # Documento de Arquitetura do Sistema: A Friend for Life
 
 Este documento fornece uma visão detalhada da arquitetura de software da plataforma "A Friend for Life", descrevendo seus componentes, padrões e as tecnologias utilizadas.
