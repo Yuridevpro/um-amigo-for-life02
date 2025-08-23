@@ -4,8 +4,7 @@
 
 Este documento detalha o modelo de dados da plataforma, incluindo a descrição das entidades, seus relacionamentos, um diagrama Entidade-Relacionamento (ER) e um dicionário de dados completo e preciso.
 
-### 1. Descrição das Entidades e Relacionamentos (Revisada)
-
+### 1. Descrição das Entidades e Relacionamentos 
 A análise do banco de dados revela as seguintes entidades e seus relacionamentos:
 *   **`auth_user`:** Tabela central do Django para autenticação.
 *   **`perfil_userprofile`:** Armazena dados estendidos dos usuários (Relacionamento: One-to-One com `auth_user`).
@@ -224,4 +223,3 @@ erDiagram
 | `created` | timestamp with time zone | Data de arquivamento do e-mail |
 ```
 
----

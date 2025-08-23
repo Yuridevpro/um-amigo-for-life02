@@ -36,7 +36,7 @@ graph TD
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style E fill:#bbf,stroke:#333,stroke-width:2px
-```
+
 
 **Fluxo de Requisição:**
 1. O Usuário (A) interage com a aplicação através de um Browser (B).
