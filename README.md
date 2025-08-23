@@ -103,11 +103,6 @@ Abra seu navegador e acesse: **http://127.0.0.1:8000/**
 ```
 
 um-amigo-for-life02/
-├── 📄 manage.py
-├── 📜 requirements.txt
-├── 🔑 .env
-├── 🐍 my_storages.py
-├── 📦 ambiente_virtual/
 │
 ├── ⚙️ adote/
 │   ├── __init__.py
@@ -193,34 +188,56 @@ um-amigo-for-life02/
 │   └── profile_pics/
 │
 └── 🎨 templates/
-    ├── base.html
-    ├── admin/
-    │   └── base_site.html
-    └── static/
-        ├── admin/
-        │   └── css/
-        ├── adotar/
-        │   ├── css/
-        │   └── img/
-        ├── base/
-        │   ├── css/
-        │   └── img/
-        ├── divulgar/
-        │   ├── novo_pet/
-        │   └── ver_pet/
-        ├── pagina_inicio/
-        │   ├── depoimento/
-        │   └── home/
-        ├── perfil/
-        │   ├── alterar_senha/
-        │   ├── editar_perfil/
-        │   └── meu_perfil/
-        ├── sobre_nos/
-        │   ├── politica_privacidade/
-        │   ├── quem_somos/
-        │   └── termos_servico/
-        └── usuarios/
-            └── cadastro/
+│    ├── base.html
+│    ├── admin/
+│    │   └── base_site.html
+│    └── static/
+│        ├── admin/
+│        │   └── css/
+│        ├── adotar/
+│        │   ├── css/
+│        │   └── img/
+│        ├── base/
+│        │   ├── css/
+│        │   └── img/
+│        ├── divulgar/
+│        │   ├── novo_pet/
+│        │   └── ver_pet/
+│        ├── pagina_inicio/
+│        │   ├── depoimento/
+│        │   └── home/
+│        ├── perfil/
+│        │   ├── alterar_senha/
+│        │   ├── editar_perfil/
+│        │   └── meu_perfil/
+│        ├── sobre_nos/
+│        │   ├── politica_privacidade/
+│        │   ├── quem_somos/
+│        │   └── termos_servico/
+│        └── usuarios/
+│            └── cadastro/
+│
+├── 📄 README.md
+├── 📄 manage.py
+├── 📜 requirements.txt
+├── 🔑 .env
+├── 🐍 my_storages.py
+├── 📦 ambiente_virtual/
+└── 📂 docs/
+    ├── 📂 requirements/
+    │   └── 📄 requirements.md
+    ├── 📂 architecture/
+    │   └── 📄 architecture.md
+    ├── 📂 database/
+    │   └── 📄 database_model.md
+    ├── 📂 api/
+    │   └── 📄 api_specification.md
+    └── 📂 prototypes/
+        ├── 📄 prototypes.md
+        ├── 📂 web/
+        │   └── (coloque os screenshots do desktop aqui)
+        └── 📂 mobile/
+            └── (coloque os screenshots do mobile aqui)           
 ```
 
 ## 🔬 Tecnologias Utilizadas
