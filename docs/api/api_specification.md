@@ -2,7 +2,7 @@
 
 # Documento de Especificação de APIs e Interfaces
 
-Este documento descreve as principais interfaces de comunicação e os endpoints (views) da plataforma "A Friend for Life".
+Este documento descreve as principais interfaces de comunicação e os endpoints (views) principais da plataforma "A Friend for Life".
 
 ### 1. Visão Geral da Comunicação
 
@@ -29,5 +29,19 @@ A plataforma utiliza uma arquitetura de renderização no servidor, onde as "API
 
 ### 3. Interfaces de Comunicação com Serviços Externos
 
-- **API de Localidades do IBGE:** Consumida via `GET` para popular formulários de localização. Resposta em JSON.
-- **Serviço de E-mail (SMTP):** Utilizado para enviar e-mails transacionais (confirmação de cadastro, reset de senha).
+-   **Amazon Web Services (AWS S3):**
+    -   **Descrição:** O sistema se comunica com a API do Amazon S3 para todo o armazenamento de arquivos de mídia (fotos de pets e perfis).
+    -   **Protocolo/Interface:** A comunicação é feita através do SDK da AWS para Python (Boto3), abstraída pela biblioteca `django-storages`. As operações principais são `PutObject` (para upload) e `GetObject` (para leitura).
+    -   **Autenticação:** Requer `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY` para autorizar as operações no bucket.
+
+-   **API de Localidades do IBGE:**
+    -   **Descrição:** Consumida via requisições HTTP para popular dinamicamente os formulários de localização com estados e cidades.
+    -   **Protocolo/Interface:** API REST.
+    -   **Método:** `GET`.
+    -   **Formato de Resposta:** JSON.
+    -   **Autenticação:** Não requerida.
+
+-   **Serviço de E-mail (SMTP):**
+    -   **Descrição:** Utilizado para enviar e-mails transacionais, como confirmação de cadastro e recuperação de senha.
+    -   **Protocolo/Interface:** SMTP (Simple Mail Transfer Protocol).
+    -   **Autenticação:** Requerida via `EMAIL_HOST_USER` e `EMAIL_HOST_PASSWORD`.
