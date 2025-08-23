@@ -1,6 +1,6 @@
 ### **Arquivo: `docs/database/database_model.md`**
 
-# Documento de Modelagem de Dados: A Friend for Life (Versão Final Corrigida com ERD do pgAdmin)
+# Documento de Modelagem de Dados: A Friend for Life 
 
 Este documento detalha o modelo de dados da plataforma, incluindo a descrição das entidades, seus relacionamentos, um diagrama Entidade-Relacionamento (ER) e um dicionário de dados completo e preciso.
 
