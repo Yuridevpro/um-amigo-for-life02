@@ -1,3 +1,8 @@
+### **Arquivo: `docs/requirements/requirements.md`**
+
+# Documento de Requisitos
+
+Este documento detalha os requisitos funcionais e não-funcionais, regras de negócio e perfis de usuário para o sistema "A Friend for Life". O objetivo é servir como uma fonte de verdade para a equipe de desenvolvimento, garantindo que a solução atenda às necessidades dos usuários e aos objetivos do projeto.
 ### 1. Perfis de Usuários
 
 Identificamos três perfis principais de usuários que interagem com o sistema:
