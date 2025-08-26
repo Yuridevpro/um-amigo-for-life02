@@ -247,7 +247,6 @@ um-amigo-for-life02/
 - **Armazenamento:** Amazon S3
 - **Infraestrutura (Produção):** Gunicorn, Nginx
 
-## 🤝 Equipe
 
 ## 🗓️ Cronograma de Desenvolvimento (Etapa 2)
 
