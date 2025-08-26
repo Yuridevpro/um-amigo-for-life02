@@ -90,6 +90,11 @@ body::before {
     z-index: -1;
 }
 
+/* Por padrão, o link fica oculto */
+.home-mobile {
+    display: none;
+}
+
 
 
 .logo {

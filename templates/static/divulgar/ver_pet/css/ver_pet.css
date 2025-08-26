@@ -1,210 +1,189 @@
+/* ========================================================== */
+/*           ESTILOS DA PÁGINA VER_PET (VERSÃO FINAL)         */
+/* ========================================================== */
+
+/* --- TÍTULO PRINCIPAL --- */
 .header-box {
     text-align: center;
-    font-size: 2.5rem; /* Ajuste o tamanho da fonte para responsividade */
-    padding: 20px 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 10px 0;
 }
 
-
-
-.card {
-display: flex;
-align-items: flex-start; /* Alinhamento do topo */
-justify-content: center;
-border: none;
-gap: 20px;
-flex-direction: row; /* Mantém a direção na horizontal */
-width: 100%;
-padding: 20px;
-margin: auto;
-background-color: #E8E8EE;
+/* --- SEÇÃO 1: HERÓI --- */
+.pet-hero {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
-    .imagens_pet {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
-        border-radius: 10px;
-        overflow: hidden;
-        padding: 20px;
-        display: flex;
-        flex-direction: column; /* Empilha as imagens */
-    }
+.coluna-imagem {
+    flex: 0 0 40%;
+    max-width: 450px;
+}
 
-    .imagem_principal img {
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-        margin: auto;
-        overflow: hidden;
-        margin: auto;
-    }
+.imagem_principal img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 10px solid transparent;
+    border-image: url('../img/image_border.png') 30 round; /* Caminho para a borda */
+}
 
-    .imagem_secundaria {
-        margin-top: 10px;
-        display: flex;
-        flex-wrap: wrap; /* Permite que os elementos quebrem a linha */
-        justify-content: space-between; /* Distribui as imagens com espaçamento igual */
-        gap: 10px; /* Espaçamento entre as imagens */
-    }
+.imagem_secundaria {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-    .imagem_secundaria img {
-        width: 80px; /* Cada imagem ocupa 100% da largura do seu container */
-        height: 80px; /* Define a altura fixa para todos os blocos */
-        object-fit: cover; /* Ajusta a imagem para cobrir todo o espaço sem distorções */
-        border-radius: 10px; /* Define cantos arredondados */
-        cursor: pointer; /* Muda o cursor para indicar que a imagem pode ser clicada */
-        
-    }
+.imagem_secundaria img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    border: 5px solid transparent;
+    border-image: url('../img/image_border.png') 30 round; /* Caminho para a borda */
+}
 
+.imagem_secundaria img:hover {
+    transform: scale(1.1);
+}
 
-    .imagens_pet .imagem_principal img,
-    .imagens_pet .imagem_secundaria img {
-        border: 10px solid transparent; /* Ajuste conforme necessário */
-        border-image: url("image_border.png") 30 round; /* Ajuste conforme necessário */
-        /* Border image width should match the original image border size */
-    }
-
-
-
-
-.informacoes {
-    width: 55%; /* Ajuste para ocupar 50% da largura */
+.coluna-info-relevante {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: none;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: none;
-    
 }
 
-.outras-informacoes {
-    width: 75%; /* Ajuste para ocupar 50% da largura */
-    display: flex;
-    flex-direction: column;
+/* --- SEÇÃO 2: GRID DE DETALHES --- */
+.pet-details-grid {
+    margin-bottom: 40px;
+}
+
+.pet-details-grid h4,
+.pet-story-section h4 {
+    font-size: 1.8rem;
+    color: var(--color-primary); /* Mantendo sua variável de cor */
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas no grid */
     gap: 20px;
-    background-color: none;
-    border-radius: 10px;
-    padding: 20px;
-
-  
 }
 
+/* --- COMPONENTES DE INFO (REUTILIZADOS) --- */
 .info-block {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    height: 100%; /* Faz todos os cards terem a mesma altura */
 }
 
-.info-block h4, .info-block h5 { /* Estilos para h4 e h5 */
-    margin-bottom: 10px;
+.info-block h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-primary); /* Mantendo sua variável de cor */
+    margin-bottom: 15px;
 }
 
-.info-item {
-    margin-bottom: 10px;
+.info-item p {
+    margin-bottom: 8px;
+
     font-family: 'Roboto', sans-serif;
 }
+
+
 
 .info-list {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.info-list li {
-    margin-bottom: 5px;
+ 
     font-family: 'Roboto', sans-serif;
 }
 
-.info-columns {
-    display: flex;
-    flex-direction: row; /* Mantém a direção na coluna */
-    align-items: flex-start; /* Alinhamento do topo */
-    justify-content: center;
-    gap: 20px;
-    width: 100%; /* Ajuste para ocupar 100% da largura */
-    margin: auto;
+.info-list li {
+    padding-left: 25px;
+    position: relative;
+    margin-bottom: 8px;
 }
 
-.info-column {
-    flex: 1;
-    min-width: 0; /* Para permitir que os elementos se ajustem responsivamente */
-    width: 50%; /* Cada coluna ocupa 100% da largura */
+.info-list li::before {
+    content: '🐾'; /* Ícone de pata */
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    top: 0;
 }
 
-.detalhes_pet {
-    background-color: none;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.pet-content {
-    background-color: none;
-    padding: 20px;
-}
-
-
-
+/* --- SEÇÃO 3: HISTÓRIA DO PET --- */
 .pet-story-container {
-display: flex;
-justify-content: center;
-align-items: center;
-margin: auto;
-max-width: 60%;
-min-width: 60%;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 .pet-story {
-background-color: white;
-border-radius: 10px;
-padding: 20px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center;
-margin: 10px 0;
-line-height: 2;
-word-break: break-all; /* Quebra palavras para evitar overflow */
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    line-height: 1.8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+.pet-story h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
 
+}
 
+.pet-story p {
+    color: #555;
+}
 
+/* --- BOTÕES E AÇÕES --- */
 .situacao_pet {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
-.btn-primary{
+.btn-primary, .btn-success {
     display: block;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px 25px;
+    font-size: 1.1rem;
 }
 
-/* Estilo para o botão do WhatsApp */
 .btn-whatsapp {
-display: inline-flex;
-align-items: center;
-padding: 10px 20px;
-background-color: #25D366;
-color: white;
-border-radius: 5px;
-text-decoration: none;
-font-weight: bold;
-
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .btn-whatsapp:hover {
-background-color: #20b358;
-text-decoration: none;
-color: rgb(243, 243, 243);
+    background-color: #20b358;
+    text-decoration: none;
+    color: rgb(243, 243, 243);
 }
 
 .btn-whatsapp i {
-margin-right: 10px;
+    margin-right: 10px;
 }
