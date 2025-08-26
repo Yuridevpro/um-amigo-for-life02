@@ -33,6 +33,12 @@
     display: block;
 }
 
+body::before {
+    /* Muda o anexo do fundo para 'scroll' */
+    /* Agora, o fundo vai rolar junto com a página, como um fundo normal. */
+    background-attachment: scroll;
+}
+
 }
 
 
