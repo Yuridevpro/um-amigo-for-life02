@@ -39,4 +39,8 @@
         margin-left: 10px;
     }
 
+    .custom-btn {
+        padding: 0.25rem 0.5rem; /* diminui espaço interno */
+        font-size: 0.8rem;       /* diminui tamanho da fonte */
+      }
     }

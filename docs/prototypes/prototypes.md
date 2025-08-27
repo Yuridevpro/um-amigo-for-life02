@@ -24,6 +24,7 @@ A fase inicial consistiu na criação de wireframes para definir a estrutura das
 - **Wireframe 5: Página de Cadastro de Novo Pet (`novo_pet.html`)**
   - **[Blocos]**: Header, Título da Página ("Novo Pet"), Formulário com Múltiplas Seções (Upload de Imagens, Dados Básicos do pet, Características), Botão de "Cadastrar", Footer.
 
+
 - **Wireframe 6: Página de Perfil do Usuário (`meu_perfil.html`)**
   - **[Blocos]**: Header, Seção de Informações do Perfil (Foto, Nome, Localização, Contadores, Botões de Ação), Seção "Meus Pets" com Grid de Cards, Paginação para os pets, Footer.
 

@@ -151,12 +151,16 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <!-- Botão que ativa o modal de confirmação -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeletePetModal-{{ pet.id }}">
+                        <div class="card-footer d-flex justify-content-center gap-2 flex-wrap">
+                            <!-- Botão Editar -->
+                            <a href="{% url 'editar_pet' pet.id %}" class="btn btn-info custom-btn">EDITAR</a>
+                            
+                            <!-- Botão Remover -->
+                            <button type="button" class="btn btn-danger custom-btn" data-bs-toggle="modal" data-bs-target="#confirmDeletePetModal-{{ pet.id }}">
                                 REMOVER
                             </button>
                         </div>
+                        
                     </div>
 
                     <!-- Modal de confirmação de remoção do pet -->

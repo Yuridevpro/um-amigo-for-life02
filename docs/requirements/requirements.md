@@ -31,10 +31,11 @@ Os Requisitos Funcionais descrevem o que o sistema deve fazer.
 *   **RF11 - Visualização de Perfil de Protetor:** Qualquer usuário deve poder visualizar o perfil público de outro protetor, exibindo suas informações de contato e a lista de pets que ele divulgou.
 
 **Módulo de Gerenciamento de Pets (Apps: divulgar, perfil)**
-*   **RF12 - Cadastro de Pet:** Um usuário autenticado deve poder cadastrar um pet para adoção, fornecendo informações detalhadas como foto principal, fotos secundárias (até 5), espécie, sexo, tamanho, nome, história e características (cuidados, temperamento, etc.).
-*   **RF13 - Marcação de Pet como Adotado:** O proprietário do pet deve poder alterar o status de um pet de "Para adoção" para "Adotado".
-*   **RF14 - Remoção de Pet:** O proprietário do pet deve poder remover (desativar) um anúncio de pet da plataforma.
-*   **RF15 - Visualização de Detalhes do Pet:** Qualquer usuário deve poder visualizar a página de detalhes de um pet, com todas as suas fotos, informações, história e os dados de contato do protetor.
+*   **RF12 - Cadastro de Pet:** Um usuário autenticado deve poder cadastrar um pet para adoção, fornecendo informações detalhadas como **foto principal (obrigatória)**, fotos secundárias (até 5), espécie, sexo, tamanho, nome, história e características.
+*   **RF13 - Edição de Pet:** O sistema deve permitir que o proprietário de um pet edite todas as suas informações. O formulário de edição deve vir pré-preenchido com os dados atuais do animal.
+*   **RF14 - Marcação de Pet como Adotado:** O proprietário do pet deve poder alterar o status de um pet de "Para adoção" para "Adotado".
+*   **RF15 - Remoção de Pet:** O proprietário do pet deve poder remover (desativar) um anúncio de pet da plataforma.
+*   **RF16 - Visualização de Detalhes do Pet:** Qualquer usuário deve poder visualizar a página de detalhes de um pet, com todas as suas fotos, informações, história e os dados de contato do protetor.
 
 **Módulo de Adoção e Busca (Apps: adotar, pagina_inicio)**
 *   **RF16 - Listagem de Pets:** O sistema deve exibir uma lista paginada de todos os pets ativos e disponíveis para adoção.
@@ -63,7 +64,36 @@ Os Requisitos Não-Funcionais descrevem como o sistema deve operar.
 *   **HU01: Como um visitante,** eu quero buscar pets por estado, cidade, espécie e tamanho, para que eu possa encontrar um animal que se encaixe no meu perfil e na minha localidade.
 *   **HU02: Como um novo usuário,** eu quero me cadastrar na plataforma de forma segura e confirmar meu e-mail, para que eu possa começar a divulgar animais para adoção.
 *   **HU03: Como um protetor de animais,** eu quero cadastrar um pet com fotos e informações detalhadas sobre sua história e personalidade, para aumentar suas chances de encontrar um lar adequado.
-*   **HU04: Como um protetor de animais,** eu quero gerenciar meu perfil e os anúncios dos meus pets, marcando-os como "adotados" quando encontrarem um lar, para manter a plataforma sempre atualizada.
+*   **HU04: Como um protetor de animais,** eu quero gerenciar meu perfil e os anúncios dos meus pets, **editando suas informações** ou marcando-os como "adotados" quando encontrarem um lar, para manter a plataforma sempre atualizada.
 *   **HU05: Como um usuário que adotou um pet,** eu quero deixar um depoimento na plataforma, para compartilhar minha experiência positiva e incentivar outras pessoas a adotarem.
-```
----
+
+### **5. Regras de Negócio**
+
+As seguintes regras de negócio governam o comportamento e as restrições da plataforma "A Friend for Life", garantindo a integridade dos dados e a qualidade da experiência do usuário.
+
+#### **Regras de Conta e Perfil**
+
+*   **RN01 - Integridade do Perfil do Usuário:** O sistema garante que todo usuário autenticado possua um perfil completo antes de interagir com a plataforma. Embora os dados do perfil (nome, sobrenome, telefone e localização) sejam capturados e salvos durante o **processo de cadastro**, um `middleware` de verificação atua em cada requisição. Caso o perfil do usuário seja detectado como incompleto por qualquer motivo, o acesso à página solicitada é bloqueado e ele é **automaticamente redirecionado** para a tela de "Editar Perfil" para que complete suas informações. *(Fonte: `perfil/middleware.py`, `usuarios/views.py`)*
+
+*   **RN02 - Confirmação de E-mail para Ativação:** Uma nova conta de usuário é criada com o status "inativo". A conta só se torna funcional e permite o login após o usuário clicar no link de confirmação enviado para o seu e-mail, que possui um prazo de validade. *(Fonte: `usuarios/views.py`)*
+
+*   **RN03 - Unicidade de E-mail:** Cada endereço de e-mail só pode ser associado a uma única conta de usuário ativa na plataforma. O sistema impede o cadastro de um e-mail já em uso. *(Fonte: `usuarios/views.py`)*
+
+*   **RN04 - Formato de Dados do Usuário:** Os dados de e-mail e telefone fornecidos pelo usuário devem seguir formatos válidos, que são verificados no momento do cadastro e da edição do perfil. *(Fonte: `perfil/views.py` e `usuarios/views.py`)*
+
+#### **Regras de Gerenciamento de Pets**
+
+*   **RN05 - Propriedade do Pet:** Apenas o usuário que cadastrou um pet (o proprietário) tem permissão para editar, remover ou marcar o pet como "adotado". O sistema impede que outros usuários realizem essas ações. *(Fonte: `divulgar/views.py` e `perfil/views.py`)*
+
+*   **RN06 - Foto Principal Obrigatória:** Todo anúncio de pet deve, obrigatoriamente, possuir uma foto principal. O sistema impede o salvamento de um novo cadastro ou de uma edição que resulte em um pet sem foto principal. *(Fonte: `divulgar/views.py`)*
+
+*   **RN07 - Limite de Fotos Secundárias:** Um pet pode ter no máximo 5 (cinco) fotos secundárias em sua galeria. O sistema valida essa contagem tanto no cadastro de um novo pet quanto na edição de um pet existente. *(Fonte: `divulgar/views.py`)*
+
+*   **RN08 - Campos Obrigatórios do Pet:** Todos os campos de informação do pet (nome, história, espécie, sexo, tamanho e todas as características) são de preenchimento obrigatório para garantir a qualidade e a completude dos anúncios. *(Fonte: `divulgar/views.py`)*
+
+*   **RN09 - Visibilidade dos Anúncios:** Apenas pets com o status "Para Adoção" (`P`) e que estão marcados como ativos (`is_active=True`) são exibidos nas páginas de listagem e busca da plataforma. *(Fonte: `adotar/views.py` e `pagina_inicio/views.py`)*
+
+#### **Regras de Conteúdo**
+
+*   **RN10 - Depoimento Único por Usuário:** Embora um usuário possa, tecnicamente, ter múltiplos depoimentos, a lógica da aplicação trata o depoimento como único. Ao enviar um "novo" depoimento, o sistema atualiza o depoimento existente daquele usuário em vez de criar um novo registro. *(Fonte: `pagina_inicio/views.py`)*
+
