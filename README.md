@@ -59,7 +59,8 @@ DB_USER = SEU_DB_USER
 
 ### 4. Banco de Dados e Execução
 ```bash
-python manage.py migrate
+python manage.py makemigrations
+
 # Aplique as migrações do banco de dados
 python manage.py migrate
 
