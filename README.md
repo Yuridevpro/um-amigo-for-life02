@@ -257,29 +257,56 @@ um-amigo-for-life02/
 
 ## 🗓️ Cronograma de Desenvolvimento (Etapa 2)
 
-O cronograma a seguir detalha o plano de 8 semanas para a fase de implementação, testes e validação do sistema, conforme a disciplina N708.
+O plano de desenvolvimento para a próxima etapa está estruturado em um cronograma de **60 dias**, dividido em **4 Sprints** de duas semanas (10 dias úteis) cada, seguindo a metodologia Scrum.
 
-| Semana | Atividades Principais | Entregáveis |
-| :--- | :--- | :--- |
-| **Semana 1** | **Configuração do Ambiente e Backend (Base):** Configuração do ambiente de produção, setup inicial do Django, criação dos modelos de `usuarios` e `perfil`. | Ambiente de desenvolvimento configurado, repositório Git iniciado, modelos iniciais e migrações. |
-| **Semana 2** | **Desenvolvimento do Módulo de Autenticação:** Implementação das views de cadastro, login, logout, confirmação de e-mail e recuperação de senha. | Funcionalidades de autenticação completas e operacionais. |
-| **Semana 3** | **Desenvolvimento do Módulo de Perfil:** Implementação das views para criar, visualizar e editar perfis de usuário, incluindo o upload de fotos para o S3. | Gerenciamento de perfil completo. |
-| **Semana 4** | **Desenvolvimento do Módulo de Pets:** Implementação do cadastro de novos pets, upload de múltiplas imagens e visualização da página de detalhes do pet. | CRUD básico de pets finalizado. |
-| **Semana 5** | **Desenvolvimento do Módulo de Busca e Adoção:** Implementação da listagem e filtragem avançada de pets. | Funcionalidade de busca e listagem completa. |
-| **Semana 6** | **Desenvolvimento de Funcionalidades Adicionais:** Implementação do sistema de depoimentos e da página "Sobre Nós". Integração final do frontend. | Todas as funcionalidades principais implementadas. |
-| **Semana 7** | **Testes e Validação:** Elaboração e execução do plano de testes (testes unitários e de integração). Correção de bugs e refinamento da UI/UX. | Relatório de testes, bugs corrigidos. |
-| **Semana 8** | **Documentação Final e Preparação para Deploy:** Finalização da documentação do código, preparação dos scripts de deploy e apresentação final do projeto. | Documentação finalizada, aplicação pronta para o deploy. |
+-   **Reuniões:**
+    -   **Sprint Planning:** 1º dia de cada Sprint, às 19h.
+    -   **Reuniões Diárias (Daily Scrum):** Todos os dias, das 19h às 20h.
+    -   **Sprint Review:** Último dia de cada Sprint, às 19h.
+    -   **Sprint Retrospective:** Último dia de cada Sprint, às 20h.
 
+---
+
+### **Entregas - Mínimo Produto Viável (MVP)**
+
+#### **1ª Sprint: Módulo Básico e Estrutura do Sistema**
+*   **Configuração Inicial do Projeto:** Definição do ambiente, linguagem, frameworks, setup do repositório, ferramentas, banco de dados.
+*   **Cadastro de Usuários:** Implementação da criação de perfis para adotantes e protetores.
+*   **Cadastro de Animais:** Implementação do registro de animais com informações básicas.
+*   **Autenticação e Segurança Básica:** Implementação de criptografia de senhas, fluxo de login/logout e confirmação por e-mail.
+*   **Deploy Inicial da Aplicação:** Publicação do mínimo produto viável (MVP) em um ambiente de homologação.
+
+#### **2ª Sprint: Funcionalidades de Interação e Melhoria da Experiência**
+*   **Busca e Filtros:** Implementação da funcionalidade para encontrar animais para adoção com base em critérios (localização, espécie, porte).
+*   **Otimizações de Desempenho:** Garantir suporte a múltiplos acessos simultâneos e carregamento rápido das páginas.
+*   **Deploy Incremental da Aplicação:** Atualização do ambiente com as novas funcionalidades.
+
+#### **3ª Sprint: Expansão da Plataforma e Melhorias na Segurança**
+*   **Mapeamento de ONGs e Abrigos:** Funcionalidade para localização e cadastro de instituições parceiras (feature futura).
+*   **Registro de Feedbacks:** Implementação de um sistema para avaliações sobre adoções e interações.
+*   **Melhoria na Disponibilidade:** Otimização da infraestrutura para garantir 99% de uptime.
+*   **Aprimoramento da Segurança:** Implementação de camadas extras de proteção e auditoria.
+*   **Deploy Incremental da Aplicação:** Atualização do ambiente com as melhorias.
+
+#### **4ª Sprint: Testes, Ajustes Finais e Escalabilidade**
+*   **Refinamento de Funcionalidades:** Correção de bugs e melhorias de usabilidade com base nos feedbacks.
+*   **Testes de Carga e Stress:** Garantir a performance do sistema com múltiplos acessos simultâneos.
+*   **Preparação para Expansão:** Garantir que o sistema possa ser replicado em outras cidades.
+*   **Documentação Final e Entrega Completa:** Finalização dos artefatos de software como produto completo.
+*   **Deploy Final da Aplicação:** Entrega da versão final e realização de testes piloto.
 ## 🤝 Equipe e Papéis
 
 **Projeto desenvolvido para a disciplina de Projeto Aplicado Multiplataforma (N705).**
 
-| Nome Completo do Integrante | Papel na Equipe |
+| Nome | Papel |
 | :--- | :--- |
-| [Seu Nome Completo] | Gerente de Projeto / Arquiteto de Software |
-| [Nome Integrante 2] | Desenvolvedor Backend |
-| [Nome Integrante 3] | Desenvolvedor Frontend / UI/UX Designer |
-| [Nome Integrante 4] | Analista de QA (Testes) / Documentação |
+| José Alves Ferreira Neto | Product Owner / Gestão |
+| Alan Magalhães Barros | Scrum Master |
+| Alisson Rafael Silva de Almeida | Time (Desenvolvimento) |
+| Yuri da Silva Ferreira | Time (Desenvolvimento) |
+| Kairo César Ferreira Cunha | Time (Desenvolvimento / Testes) |
+| Gabriel Nogueira Ibiapina | UX / Documentação |
+
 
 ---
 
