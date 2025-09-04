@@ -327,7 +327,10 @@ O plano de desenvolvimento para a implementação do sistema está estruturado e
 *   **Deploy Final em Produção:**
     *   Migrar a aplicação do ambiente de homologação para o ambiente de produção final.
     *   Realizar um teste piloto, convidando alguns usuários para testar a plataforma em um cenário real.
+      
 **Projeto desenvolvido para a disciplina de Projeto Aplicado Multiplataforma (N705).**
+
+## 🤝 Equipe e Papéis
 
 | Nome | Papel |
 | :--- | :--- |
