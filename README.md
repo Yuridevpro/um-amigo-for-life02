@@ -257,7 +257,7 @@ um-amigo-for-life02/
 
 ## 🗓️ Cronograma de Desenvolvimento (Etapa 2)
 
-O plano de desenvolvimento para a próxima etapa está estruturado em um cronograma de **60 dias**, dividido em **4 Sprints** de duas semanas (10 dias úteis) cada, seguindo a metodologia Scrum.
+O plano de desenvolvimento para a implementação do sistema está estruturado em um cronograma de **60 dias**, dividido em **4 Sprints** de duas semanas (10 dias úteis) cada, seguindo a metodologia Scrum.
 
 -   **Reuniões:**
     -   **Sprint Planning:** 1º dia de cada Sprint, às 19h.
@@ -269,33 +269,64 @@ O plano de desenvolvimento para a próxima etapa está estruturado em um cronogr
 
 ### **Entregas - Mínimo Produto Viável (MVP)**
 
-#### **1ª Sprint: Módulo Básico e Estrutura do Sistema**
-*   **Configuração Inicial do Projeto:** Definição do ambiente, linguagem, frameworks, setup do repositório, ferramentas, banco de dados.
-*   **Cadastro de Usuários:** Implementação da criação de perfis para adotantes e protetores.
-*   **Cadastro de Animais:** Implementação do registro de animais com informações básicas.
-*   **Autenticação e Segurança Básica:** Implementação de criptografia de senhas, fluxo de login/logout e confirmação por e-mail.
-*   **Deploy Inicial da Aplicação:** Publicação do mínimo produto viável (MVP) em um ambiente de homologação.
+#### **1ª Sprint: Estrutura do Projeto e Autenticação**
 
-#### **2ª Sprint: Funcionalidades de Interação e Melhoria da Experiência**
-*   **Busca e Filtros:** Implementação da funcionalidade para encontrar animais para adoção com base em critérios (localização, espécie, porte).
-*   **Otimizações de Desempenho:** Garantir suporte a múltiplos acessos simultâneos e carregamento rápido das páginas.
-*   **Deploy Incremental da Aplicação:** Atualização do ambiente com as novas funcionalidades.
+*   **Configuração do Ambiente e Backend:**
+    *   Configurar `settings.py` com variáveis de ambiente (`.env`) para desenvolvimento e produção.
+    *   Integrar o armazenamento de mídia com o Amazon S3 utilizando `django-storages` e `boto3`.
+    *   Estruturar o banco de dados PostgreSQL e aplicar as migrações iniciais.
 
-#### **3ª Sprint: Expansão da Plataforma e Melhorias na Segurança**
-*   **Mapeamento de ONGs e Abrigos:** Funcionalidade para localização e cadastro de instituições parceiras (feature futura).
-*   **Registro de Feedbacks:** Implementação de um sistema para avaliações sobre adoções e interações.
-*   **Melhoria na Disponibilidade:** Otimização da infraestrutura para garantir 99% de uptime.
-*   **Aprimoramento da Segurança:** Implementação de camadas extras de proteção e auditoria.
-*   **Deploy Incremental da Aplicação:** Atualização do ambiente com as melhorias.
+*   **Módulo de Autenticação (`usuarios` app):**
+    *   Implementar a view `cadastro` para criar instâncias dos models `User` e `UserProfile`.
+    *   Desenvolver o fluxo de confirmação por e-mail, utilizando o model `Ativacao` e o serviço SMTP.
+    *   Criar a view `logar` e a lógica de recuperação de senha com o model `ResetSenha`.
 
-#### **4ª Sprint: Testes, Ajustes Finais e Escalabilidade**
-*   **Refinamento de Funcionalidades:** Correção de bugs e melhorias de usabilidade com base nos feedbacks.
-*   **Testes de Carga e Stress:** Garantir a performance do sistema com múltiplos acessos simultâneos.
-*   **Preparação para Expansão:** Garantir que o sistema possa ser replicado em outras cidades.
-*   **Documentação Final e Entrega Completa:** Finalização dos artefatos de software como produto completo.
-*   **Deploy Final da Aplicação:** Entrega da versão final e realização de testes piloto.
-## 🤝 Equipe e Papéis
+*   **Deploy Inicial (Homologação):**
+    *   Publicar a estrutura base da aplicação em um ambiente de testes para validar a configuração inicial.
 
+#### **2ª Sprint: Funcionalidades Essenciais de Perfil e Pets**
+
+*   **Módulo de Perfil (`perfil` app):**
+    *   Desenvolver as views `meu_perfil` e `editar_perfil`, permitindo a visualização e atualização dos dados do `UserProfile`.
+    *   Implementar o `ProfileCompleteMiddleware` para garantir que os usuários completem o perfil antes de navegar.
+
+*   **Módulo de Divulgação (`divulgar` app):**
+    *   Construir a view `novo_pet` com o formulário para cadastrar instâncias do model `Pet` e `PetImage`, incluindo o upload de múltiplas imagens para o S3.
+    *   Desenvolver a view `ver_pet` para exibir os detalhes de um animal e a lógica para marcá-lo como "Adotado".
+
+*   **Deploy Incremental:**
+    *   Atualizar o ambiente de homologação com as novas funcionalidades de gerenciamento de perfis e pets.
+
+#### **3ª Sprint: Interação, Busca e Engajamento**
+
+*   **Módulo de Adoção (`adotar` app):**
+    *   Implementar a view `listar_pets` com a lógica de filtragem por localização (do `UserProfile`), espécie e tamanho.
+    *   Implementar a paginação (`Paginator` do Django) para otimizar o carregamento da lista de pets.
+
+*   **Módulo de Engajamento (`pagina_inicio` app):**
+    *   Desenvolver as views para criar e gerenciar o model `Depoimento`.
+    *   Implementar a view `mais_depoimentos` com `JsonResponse` para o carregamento dinâmico na `home`.
+
+*   **Reforço de Segurança e Permissões:**
+    *   Revisar todas as views críticas (`editar_pet`, `remover_pet`) para garantir que apenas o proprietário do pet possa realizar as ações.
+
+*   **Deploy Incremental:**
+    *   Atualizar o ambiente de homologação com as funcionalidades de busca e depoimentos.
+
+#### **4ª Sprint: Validação, Refinamento e Lançamento**
+
+*   **Testes de Aceitação e Validação (E2E):**
+    *   Executar testes manuais nos principais fluxos de usuário: 1) Cadastro completo com ativação de e-mail; 2) Login, cadastro de pet e edição; 3) Busca e visualização de um pet para adoção; 4) Recuperação de senha.
+
+*   **Refinamento da Interface (UI/UX):**
+    *   Realizar ajustes finos no CSS e nos templates (`base.html` e outros) com base nos testes para garantir a responsividade e a usabilidade em diferentes dispositivos.
+
+*   **Finalização da Documentação Técnica:**
+    *   Revisar e completar todos os documentos na pasta `docs/`, incluindo o `README.md`, garantindo que toda a documentação reflita o estado final do código.
+
+*   **Deploy Final em Produção:**
+    *   Migrar a aplicação do ambiente de homologação para o ambiente de produção final.
+    *   Realizar um teste piloto, convidando alguns usuários para testar a plataforma em um cenário real.
 **Projeto desenvolvido para a disciplina de Projeto Aplicado Multiplataforma (N705).**
 
 | Nome | Papel |
