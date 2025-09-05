@@ -2,6 +2,53 @@
 
 Sistema web completo para conectar protetores de animais a pessoas interessadas em adoção, facilitando o encontro entre pets e seus futuros lares.
 
+## 🎯 Problema Abordado e Objetivos
+
+### Problema
+O grande número de animais abandonados e a dificuldade de conexão entre protetores independentes/ONGs e potenciais adotantes criam um ciclo de superlotação em abrigos e sofrimento animal. Protetores lutam para dar visibilidade aos animais, enquanto pessoas que desejam adotar muitas vezes não sabem por onde começar a procurar.
+
+### Objetivos do Sistema
+*   **Centralizar e Facilitar a Adoção:** Criar um ponto de encontro digital, unificando os anúncios de pets para adoção e simplificando o processo de busca para os adotantes.
+*   **Aumentar a Visibilidade:** Fornecer uma ferramenta eficaz para que protetores possam divulgar os animais sob seus cuidados para um público mais amplo.
+*   **Promover a Posse Responsável:** Oferecer informações detalhadas sobre cada animal para ajudar a garantir que as adoções sejam bem-sucedidas e duradouras.
+*   **Gerar Impacto Social Positivo:** Contribuir para a diminuição do número de animais abandonados e fortalecer a comunidade de proteção animal, alinhando-se ao **ODS 11 (Cidades e Comunidades Sustentáveis)**.
+
+## 📋 Escopo do Projeto
+
+O escopo do projeto "A Friend for Life" abrange o ciclo completo de divulgação e busca para adoção de animais:
+1.  **Gerenciamento de Usuários:** Cadastro com confirmação por e-mail, login, recuperação de senha e gerenciamento de perfil.
+2.  **Gerenciamento de Pets:** Protetores podem cadastrar, editar, remover e marcar pets como adotados.
+3.  **Busca e Adoção:** Visitantes e usuários podem buscar pets com filtros de localização e características, além de visualizar os contatos do protetor.
+4.  **Engajamento:** Usuários podem deixar depoimentos para compartilhar suas experiências.
+
+**Fora do Escopo:** O sistema **não** lida com transações financeiras (doações), gerenciamento de estoque de abrigos ou o processo de adoção em si (entrevistas, contratos), que ocorrem diretamente entre o adotante e o protetor.
+
+## 🏛️ Visão Geral da Arquitetura
+
+A plataforma utiliza uma **Arquitetura Monolítica** com o framework **Django**, seguindo o padrão **Model-View-Template (MVT)**. Esta abordagem foi escolhida para simplificar o desenvolvimento e a implantação. O sistema se comunica com serviços externos para funcionalidades chave como armazenamento de mídia (AWS S3) e consulta de localização (API IBGE).
+
+```mermaid
+graph TD
+    subgraph "Usuário"
+        A[Visitante / Protetor]
+    end
+
+    subgraph "Infraestrutura de Produção"
+        B[Browser] --> C{Load Balancer / Nginx};
+        C --> D[Servidor de Aplicação - Gunicorn];
+        D -- WSGI --> E((Django App<br>A Friend for Life));
+        E -- ORM --> F[(PostgreSQL DB)];
+        E -- boto3/storages --> G[(AWS S3<br>Armazenamento de Mídia)];
+        E -- HTTP Request --> H[API Externa<br>IBGE];
+        E -- SMTP --> I[Serviço de E-mail];
+    end
+
+    A -- HTTP/HTTPS --> B;
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 ## 🚀 Acesso à Plataforma
 
 **Acesse a aplicação em produção no seguinte link:**
