@@ -1,88 +1,114 @@
 <!-- usuarios/templates/email_reset_senha.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Redefinição de Senha</title>
     <style>
+        /* Estilos para máxima compatibilidade */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            color: #333;
+            background-color: #f8f9fc;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .container {
-            width: 100%;
+        .email-container {
             max-width: 600px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaecef;
         }
-        .header {
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .header img {
-            width: 150px;
-        }
-        .content {
+        .email-header {
+            background-color: #2E7D32; /* Verde escuro */
+            padding: 40px 20px;
             text-align: center;
         }
-        .content h1 {
-            color: #4CAF50;
-            font-size: 24px;
+        .email-header h1 {
+            margin: 0;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
         }
-        .content p {
-            font-size: 16px;
+        .email-body {
+            padding: 35px 30px;
+            color: #343a40;
             line-height: 1.6;
-        }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-        }
-        .button a {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 20px;
-            text-decoration: none;
-            border-radius: 5px;
             font-size: 16px;
         }
-        .footer {
+        .email-body p {
+            margin: 0 0 20px;
+        }
+        .email-button-container {
             text-align: center;
-            margin-top: 20px;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-            font-size: 14px;
-            color: #777;
+            margin: 30px 0;
+        }
+        .email-button {
+            background-color: #4CAF50; /* Verde principal */
+            color: #ffffff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .email-button:hover {
+            background-color: #388E3C; /* Verde principal mais escuro */
+        }
+        .email-footer {
+            background-color: #2E7D32; /* Verde escuro */
+            color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .email-footer p {
+            margin: 0;
+        }
+
+        /* Media queries para responsividade */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                margin: 0;
+                border-radius: 0;
+            }
+            .email-body, .email-header, .email-footer {
+                padding: 25px 20px;
+            }
+            .email-header h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-       
-        <div class="content">
+    <div class="email-container">
+        <div class="email-header">
             <h1>Redefinição de Senha</h1>
-            <p>Olá {{ user.username }},</p>
-            <p>Recebemos uma solicitação para redefinir a senha da sua conta.</p>
-            <p>Para prosseguir com a redefinição de senha, clique no botão abaixo:</p>
-            <div class="button">
-                <a href="{{ reset_link }}">Redefinir Senha</a>
-            </div>
-            <p>Este link expira em 24 horas. Se você não confirmar sua conta nesse prazo, será necessário gerar um novo link de confirmação.</p>
-            <p>Para gerar um novo link de confirmaçao, preencha os dados novamente e clique em enviar</p>
-            <p>Se você não solicitou a redefinição de senha, por favor, ignore este e-mail.</p>
-
         </div>
-        <div class="footer">
-            <p>Atenciosamente,</p>
-            <p>Equipe A friend for life</p>
+        <div class="email-body">
+            <p>Olá, {{ user.userprofile.nome }},</p>
+            <p>Recebemos uma solicitação para redefinir a senha da sua conta. Se foi você, clique no botão abaixo para criar uma nova senha:</p>
+            <div class="email-button-container">
+                <a href="http://{{ host }}{% url 'criar_senha' uidb64=uidb64 token=token %}" class="email-button">Redefinir Minha Senha</a>
+            </div>
+            <p>Este link é válido por 1 hora. Se você não solicitou esta alteração, pode ignorar este e-mail com segurança.</p>
+        </div>
+        <div class="email-footer">
+            <p>&copy; {% now "Y" %} A Friend For Life. Todos os direitos reservados.</p>
         </div>
     </div>
 </body>
