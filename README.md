@@ -11,6 +11,53 @@ Sistema web completo para conectar protetores de animais a pessoas interessadas 
 
 ---
 
+## 🎯 Problema Abordado e Objetivos
+
+### Problema
+O grande número de animais abandonados e a dificuldade de conexão entre protetores independentes/ONGs e potenciais adotantes criam um ciclo de superlotação em abrigos e sofrimento animal. Protetores lutam para dar visibilidade aos animais, enquanto pessoas que desejam adotar muitas vezes não sabem por onde começar a procurar.
+
+### Objetivos do Sistema
+*   **Centralizar e Facilitar a Adoção:** Criar um ponto de encontro digital, unificando os anúncios de pets para adoção e simplificando o processo de busca para os adotantes.
+*   **Aumentar a Visibilidade:** Fornecer uma ferramenta eficaz para que protetores possam divulgar os animais sob seus cuidados para um público mais amplo.
+*   **Promover a Posse Responsável:** Oferecer informações detalhadas sobre cada animal para ajudar a garantir que as adoções sejam bem-sucedidas e duradouras.
+*   **Gerar Impacto Social Positivo:** Contribuir para a diminuição do número de animais abandonados e fortalecer a comunidade de proteção animal, alinhando-se ao **ODS 11 (Cidades e Comunidades Sustentáveis)**.
+
+## 📋 Escopo do Projeto
+
+O escopo do projeto "A Friend for Life" abrange o ciclo completo de divulgação e busca para adoção de animais:
+1.  **Gerenciamento de Usuários:** Cadastro com confirmação por e-mail, login, recuperação de senha e gerenciamento de perfil.
+2.  **Gerenciamento de Pets:** Protetores podem cadastrar, editar, remover e marcar pets como adotados.
+3.  **Busca e Adoção:** Visitantes e usuários podem buscar pets com filtros de localização e características, além de visualizar os contatos do protetor.
+4.  **Engajamento:** Usuários podem deixar depoimentos para compartilhar suas experiências.
+
+**Fora do Escopo:** O sistema **não** lida com transações financeiras (doações), gerenciamento de estoque de abrigos ou o processo de adoção em si (entrevistas, contratos), que ocorrem diretamente entre o adotante e o protetor.
+
+## 🏛️ Visão Geral da Arquitetura
+
+A plataforma utiliza uma **Arquitetura Monolítica** com o framework **Django**, seguindo o padrão **Model-View-Template (MVT)**. Esta abordagem foi escolhida para simplificar o desenvolvimento e a implantação. O sistema se comunica com serviços externos para funcionalidades chave como armazenamento de mídia (AWS S3) e consulta de localização (API IBGE).
+
+```mermaid
+graph TD
+    subgraph "Usuário"
+        A[Visitante / Protetor]
+    end
+
+    subgraph "Infraestrutura de Produção"
+        B[Browser] --> C{Load Balancer / Nginx};
+        C --> D[Servidor de Aplicação - Gunicorn];
+        D -- WSGI --> E((Django App<br>A Friend for Life));
+        E -- ORM --> F[(PostgreSQL DB)];
+        E -- boto3/storages --> G[(AWS S3<br>Armazenamento de Mídia)];
+        E -- HTTP Request --> H[API Externa<br>IBGE];
+        E -- SMTP --> I[Serviço de E-mail];
+    end
+
+    A -- HTTP/HTTPS --> B;
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 ## 🚀 Início Rápido (Ambiente de Desenvolvimento)
 
 ### 1. Pré-requisitos
@@ -257,29 +304,90 @@ um-amigo-for-life02/
 
 ## 🗓️ Cronograma de Desenvolvimento (Etapa 2)
 
-O cronograma a seguir detalha o plano de 8 semanas para a fase de implementação, testes e validação do sistema, conforme a disciplina N708.
+O plano de desenvolvimento para a implementação do sistema está estruturado em um cronograma de **60 dias**, dividido em **4 Sprints** de duas semanas (10 dias úteis) cada, seguindo a metodologia Scrum.
 
-| Semana | Atividades Principais | Entregáveis |
-| :--- | :--- | :--- |
-| **Semana 1** | **Configuração do Ambiente e Backend (Base):** Configuração do ambiente de produção, setup inicial do Django, criação dos modelos de `usuarios` e `perfil`. | Ambiente de desenvolvimento configurado, repositório Git iniciado, modelos iniciais e migrações. |
-| **Semana 2** | **Desenvolvimento do Módulo de Autenticação:** Implementação das views de cadastro, login, logout, confirmação de e-mail e recuperação de senha. | Funcionalidades de autenticação completas e operacionais. |
-| **Semana 3** | **Desenvolvimento do Módulo de Perfil:** Implementação das views para criar, visualizar e editar perfis de usuário, incluindo o upload de fotos para o S3. | Gerenciamento de perfil completo. |
-| **Semana 4** | **Desenvolvimento do Módulo de Pets:** Implementação do cadastro de novos pets, upload de múltiplas imagens e visualização da página de detalhes do pet. | CRUD básico de pets finalizado. |
-| **Semana 5** | **Desenvolvimento do Módulo de Busca e Adoção:** Implementação da listagem e filtragem avançada de pets. | Funcionalidade de busca e listagem completa. |
-| **Semana 6** | **Desenvolvimento de Funcionalidades Adicionais:** Implementação do sistema de depoimentos e da página "Sobre Nós". Integração final do frontend. | Todas as funcionalidades principais implementadas. |
-| **Semana 7** | **Testes e Validação:** Elaboração e execução do plano de testes (testes unitários e de integração). Correção de bugs e refinamento da UI/UX. | Relatório de testes, bugs corrigidos. |
-| **Semana 8** | **Documentação Final e Preparação para Deploy:** Finalização da documentação do código, preparação dos scripts de deploy e apresentação final do projeto. | Documentação finalizada, aplicação pronta para o deploy. |
+-   **Reuniões:**
+    -   **Sprint Planning:** 1º dia de cada Sprint, às 19h.
+    -   **Reuniões Diárias (Daily Scrum):** Todos os dias, das 19h às 20h.
+    -   **Sprint Review:** Último dia de cada Sprint, às 19h.
+    -   **Sprint Retrospective:** Último dia de cada Sprint, às 20h.
+
+---
+
+### **Entregas - Mínimo Produto Viável (MVP)**
+
+#### **1ª Sprint: Estrutura do Projeto e Autenticação**
+
+*   **Configuração do Ambiente e Backend:**
+    *   Configurar `settings.py` com variáveis de ambiente (`.env`) para desenvolvimento e produção.
+    *   Integrar o armazenamento de mídia com o Amazon S3 utilizando `django-storages` e `boto3`.
+    *   Estruturar o banco de dados PostgreSQL e aplicar as migrações iniciais.
+
+*   **Módulo de Autenticação (`usuarios` app):**
+    *   Implementar a view `cadastro` para criar instâncias dos models `User` e `UserProfile`.
+    *   Desenvolver o fluxo de confirmação por e-mail, utilizando o model `Ativacao` e o serviço SMTP.
+    *   Criar a view `logar` e a lógica de recuperação de senha com o model `ResetSenha`.
+
+*   **Deploy Inicial (Homologação):**
+    *   Publicar a estrutura base da aplicação em um ambiente de testes para validar a configuração inicial.
+
+#### **2ª Sprint: Funcionalidades Essenciais de Perfil e Pets**
+
+*   **Módulo de Perfil (`perfil` app):**
+    *   Desenvolver as views `meu_perfil` e `editar_perfil`, permitindo a visualização e atualização dos dados do `UserProfile`.
+    *   Implementar o `ProfileCompleteMiddleware` para garantir que os usuários completem o perfil antes de navegar.
+
+*   **Módulo de Divulgação (`divulgar` app):**
+    *   Construir a view `novo_pet` com o formulário para cadastrar instâncias do model `Pet` e `PetImage`, incluindo o upload de múltiplas imagens para o S3.
+    *   Desenvolver a view `ver_pet` para exibir os detalhes de um animal e a lógica para marcá-lo como "Adotado".
+
+*   **Deploy Incremental:**
+    *   Atualizar o ambiente de homologação com as novas funcionalidades de gerenciamento de perfis e pets.
+
+#### **3ª Sprint: Interação, Busca e Engajamento**
+
+*   **Módulo de Adoção (`adotar` app):**
+    *   Implementar a view `listar_pets` com a lógica de filtragem por localização (do `UserProfile`), espécie e tamanho.
+    *   Implementar a paginação (`Paginator` do Django) para otimizar o carregamento da lista de pets.
+
+*   **Módulo de Engajamento (`pagina_inicio` app):**
+    *   Desenvolver as views para criar e gerenciar o model `Depoimento`.
+    *   Implementar a view `mais_depoimentos` com `JsonResponse` para o carregamento dinâmico na `home`.
+
+*   **Reforço de Segurança e Permissões:**
+    *   Revisar todas as views críticas (`editar_pet`, `remover_pet`) para garantir que apenas o proprietário do pet possa realizar as ações.
+
+*   **Deploy Incremental:**
+    *   Atualizar o ambiente de homologação com as funcionalidades de busca e depoimentos.
+
+#### **4ª Sprint: Validação, Refinamento e Lançamento**
+
+*   **Testes de Aceitação e Validação (E2E):**
+    *   Executar testes manuais nos principais fluxos de usuário: 1) Cadastro completo com ativação de e-mail; 2) Login, cadastro de pet e edição; 3) Busca e visualização de um pet para adoção; 4) Recuperação de senha.
+
+*   **Refinamento da Interface (UI/UX):**
+    *   Realizar ajustes finos no CSS e nos templates (`base.html` e outros) com base nos testes para garantir a responsividade e a usabilidade em diferentes dispositivos.
+
+*   **Finalização da Documentação Técnica:**
+    *   Revisar e completar todos os documentos na pasta `docs/`, incluindo o `README.md`, garantindo que toda a documentação reflita o estado final do código.
+
+*   **Deploy Final em Produção:**
+    *   Migrar a aplicação do ambiente de homologação para o ambiente de produção final.
+    *   Realizar um teste piloto, convidando alguns usuários para testar a plataforma em um cenário real.
+      
+**Projeto desenvolvido para a disciplina de Projeto Aplicado Multiplataforma (N705).**
 
 ## 🤝 Equipe e Papéis
 
-**Projeto desenvolvido para a disciplina de Projeto Aplicado Multiplataforma (N705).**
-
-| Nome Completo do Integrante | Papel na Equipe |
+| Nome | Papel |
 | :--- | :--- |
-| [Seu Nome Completo] | Gerente de Projeto / Arquiteto de Software |
-| [Nome Integrante 2] | Desenvolvedor Backend |
-| [Nome Integrante 3] | Desenvolvedor Frontend / UI/UX Designer |
-| [Nome Integrante 4] | Analista de QA (Testes) / Documentação |
+| José Alves Ferreira Neto | Product Owner / Gestão |
+| Alan Magalhães Barros | Scrum Master |
+| Alisson Rafael Silva de Almeida | Time (Desenvolvimento) |
+| Yuri da Silva Ferreira | Time (Desenvolvimento) |
+| Kairo César Ferreira Cunha | Time (Desenvolvimento / Testes) |
+| Gabriel Nogueira Ibiapina | UX / Documentação |
+
 
 ---
 
