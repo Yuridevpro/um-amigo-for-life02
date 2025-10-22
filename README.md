@@ -1,3 +1,5 @@
+<!-- README.md -->
+
 # 🐾 A Friend for Life - Plataforma de Adoção de Animais
 
 Sistema web completo para conectar protetores de animais a pessoas interessadas em adoção, facilitando o encontro entre pets e seus futuros lares.
