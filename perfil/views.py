@@ -81,74 +81,72 @@ def meu_perfil(request):
     
 
 def perfil_protetor(request, user_id):
+    """
+    Exibe a página de perfil público de qualquer protetor.
+    É similar a `meu_perfil`, mas para visualização de terceiros.
+    Se o visitante for o próprio dono do perfil, ele é redirecionado
+    para a sua própria página `meu_perfil`.
+    """
+    # Busca o usuário pelo ID fornecido na URL.
     user = get_object_or_404(User, pk=user_id)
     
-    # Verifica se o usuário tem um perfil
+    # Verifica se o visitante é o dono do perfil.
+    is_owner = user == request.user
+    if is_owner:
+        # Se for o dono, redireciona para a visão privada do perfil.
+        return redirect('meu_perfil')
+
     try:
         user_profile = UserProfile.objects.get(user=user)
     except UserProfile.DoesNotExist:
         messages.error(request, 'Este usuário não possui um perfil.')
         return redirect('login')
 
-    # Obter os pets do usuário
-    pets = Pet.objects.filter(usuario=user, is_active=True) 
+    # ***** INÍCIO DA CORREÇÃO *****
+    # Busca apenas os pets que estão ativos E com status "Para adoção".
+    pets = Pet.objects.filter(usuario=user, is_active=True, status='P') 
+    # ***** FIM DA CORREÇÃO *****
     
-    # Contar todos os pets do usuário
-    pets_divulgados = Pet.objects.filter(usuario=user, is_active=True).count() 
-    
-    # Verificar se o usuário atual é o dono do perfil
-    is_owner = user == request.user
-    
-    # Contar os pets adotados
-    pets_adotados = Pet.objects.filter(usuario=user, status='A').count()  
+    # As contagens devem considerar todos os pets, incluindo os já adotados, para as métricas.
+    pets_divulgados = Pet.objects.filter(usuario=user, is_active=True).count()
+    pets_adotados = Pet.objects.filter(usuario=user, status='A').count()
 
-    # Se o usuário for o dono do perfil, redireciona para o meu_perfil
-    if is_owner:
-        return redirect('meu_perfil')  # corrigido o redirecionamento
-
-    # Pagination (limitando o número de cards inicialmente)
-    paginator = Paginator(pets, 6)  # Show 6 pets per page.
-    page = request.GET.get('page') or 1  # Get the page number from the request, default to 1
+    # Lógica de paginação idêntica à de `meu_perfil`.
+    paginator = Paginator(pets, 6) # Exibe 6 pets por página.
+    page = request.GET.get('page') or 1
 
     try:
         pets = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver the first page.
         pets = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page.
         pets = paginator.page(paginator.num_pages)
-
-    # Customize pagination display 
+    
+    # Lógica de números de página idêntica à de `meu_perfil`.
     page_numbers = []
-    current_page = pets.number  # Página atual
-    total_pages = paginator.num_pages  # Total de páginas
-
-    # Construindo a lista de números de página para exibição personalizada
+    current_page = pets.number
+    total_pages = paginator.num_pages
+    
     if total_pages <= 7:
         page_numbers = list(range(1, total_pages + 1))
     else:
         if current_page <= 4:
-            # Mostra os primeiros 5 números e o último
             page_numbers = list(range(1, 6)) + ["...", total_pages]
         elif current_page >= total_pages - 3:
-            # Mostra os últimos 5 números e o primeiro
             page_numbers = [1, "..."] + list(range(total_pages - 4, total_pages + 1))
         else:
-            # Mostra os números em torno da página atual
             page_numbers = [1, "..."] + list(range(current_page - 1, current_page + 2)) + ["...", total_pages]
 
-    # Passa os números de página personalizados para o template
-    return render(request, 'perfil_protetor.html', {
+    context = {
         'user': user,
         'user_profile': user_profile,
         'pets': pets,
-        'is_owner': is_owner, 
         'pets_adotados': pets_adotados,
         'profile_user': user,
-        'pets_divulgados': pets_divulgados,  # Passa a contagem total para o template
+        'pets_divulgados': pets_divulgados,
         'page_numbers': page_numbers,
-    })
+    }
+    return render(request, 'perfil_protetor.html', context)
 
     
 @login_required
